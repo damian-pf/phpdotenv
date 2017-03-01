@@ -223,6 +223,11 @@ class Loader
         if (!$value) {
             return array($name, $value);
         }
+        
+        // If it is an unquoted value with a space, add quotes
+        if ($this->beginsWithAQuote($value) === false && preg_match('/\s+/', $value) > 0) {
+           $value = "\"" . $value. "\"";
+        }
 
         if ($this->beginsWithAQuote($value)) { // value starts with a quote
             $quote = $value[0];
